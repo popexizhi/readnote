@@ -1,0 +1,40 @@
+﻿生成启动时间为 2018/11/23 10:31:41。
+     1>项目“C:\dll_pro\testa\testa\testa.vcxproj”在节点 2 上(build 个目标)。
+     1>PrepareForBuild:
+         正在创建目录“C:\dll_pro\testa\x64\Debug\”。
+       InitializeBuildStatus:
+         正在创建“x64\Debug\testa.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D TESTA_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"x64\Debug\testa.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D TESTA_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt dllmain.cpp
+         dllmain.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D TESTA_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"x64\Debug\testa.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt testa.cpp
+         testa.cpp
+       ManifestResourceCompile:
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"x64\Debug\testa.dll.embed.manifest.res" x64\Debug\testa_manifest.rc 
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\dll_pro\testa\x64\Debug\testa.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\testa.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\dll_pro\testa\x64\Debug\testa.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\dll_pro\testa\x64\Debug\testa.lib" /MACHINE:X64 /DLL x64\Debug\testa.dll.embed.manifest.res
+         x64\Debug\dllmain.obj
+         x64\Debug\stdafx.obj
+         x64\Debug\testa.obj
+            正在创建库 C:\dll_pro\testa\x64\Debug\testa.lib 和对象 C:\dll_pro\testa\x64\Debug\testa.exp
+         testa.vcxproj -> C:\dll_pro\testa\x64\Debug\testa.dll
+       Manifest:
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"x64\Debug\testa.dll.embed.manifest" /manifest x64\Debug\testa.dll.intermediate.manifest
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"x64\Debug\testa.dll.embed.manifest.res" x64\Debug\testa_manifest.rc 
+       LinkEmbedManifest:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\dll_pro\testa\x64\Debug\testa.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\testa.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\dll_pro\testa\x64\Debug\testa.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\dll_pro\testa\x64\Debug\testa.lib" /MACHINE:X64 /DLL x64\Debug\testa.dll.embed.manifest.res
+         x64\Debug\dllmain.obj
+         x64\Debug\stdafx.obj
+         x64\Debug\testa.obj
+            正在创建库 C:\dll_pro\testa\x64\Debug\testa.lib 和对象 C:\dll_pro\testa\x64\Debug\testa.exp
+         testa.vcxproj -> C:\dll_pro\testa\x64\Debug\testa.dll
+       FinalizeBuildStatus:
+         正在删除文件“x64\Debug\testa.unsuccessfulbuild”。
+         正在对“x64\Debug\testa.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“C:\dll_pro\testa\testa\testa.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:03.30
