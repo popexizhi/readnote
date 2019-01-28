@@ -271,13 +271,14 @@ Disassembly of section .text:
   4004c8:	e9 73 ff ff ff       	jmpq   400440 <register_tm_clones>
 
 00000000004004cd <swap>:
-  4004cd:	55                   	push   %rbp
-  4004ce:	48 89 e5             	mov    %rsp,%rbp
-  4004d1:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
-  4004d5:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
-  4004d9:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-  4004dd:	8b 00                	mov    (%rax),%eax
-  4004df:	89 45 fc             	mov    %eax,-0x4(%rbp)
+  4004cd:	55                   	push   %rbp // 之前的栈基地址 入栈
+  4004ce:	48 89 e5             	mov    %rsp,%rbp //设置新的基地址
+  4004d1:	48 89 7d e8          	mov    %rdi,-0x18(%rbp) //Fri 参数,[why] -18,0-~17的位置是做什么的预留呢? 
+  4004d5:	48 89 75 e0          	mov    %rsi,-0x20(%rbp) //Sec 参数 ,问题同上
+  4004d9:	48 8b 45 e8          	mov    -0x18(%rbp),%rax //将a的地址mv到rax
+  4004dd:	8b 00                	mov    (%rax),%eax //将rax中的内容mv到eax
+  4004df:	89 45 fc             	mov    %eax,-0x4(%rbp) //将eax的内容放到-0x4(%rbp),这个是tmp的操作[?]
+  // ida的注释是"Two special fields " r" and " s" represent return address and saved registers."[go]
   4004e2:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
   4004e6:	8b 10                	mov    (%rax),%edx
   4004e8:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
@@ -294,11 +295,11 @@ Disassembly of section .text:
   4004fd:	48 83 ec 10          	sub    $0x10,%rsp  //局部变量tmp 实际只需要4字节 分配了16字节 和优化有关  16字节对齐 [popexizhi: 这个不是特别理解why 4个字节就ok?]
   400501:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp) // 将a赋值 ，这个是通过栈基地址赋值的
   400508:	c7 45 f8 02 00 00 00 	movl   $0x2,-0x8(%rbp) // 同上，这里补充一下，-0x4 到 -Ox8 是int决定的, 测试一个long int去, 这里变成-0x8 -> -0x10 这个ok
-  40050f:	48 8d 55 f8          	lea    -0x8(%rbp),%rdx  //[next] lea 这里的问题是 rdx 和& 的
-  400513:	48 8d 45 fc          	lea    -0x4(%rbp),%rax
-  400517:	48 89 d6             	mov    %rdx,%rsi
-  40051a:	48 89 c7             	mov    %rax,%rdi
-  40051d:	e8 ab ff ff ff       	callq  4004cd <swap>
+  40050f:	48 8d 55 f8          	lea    -0x8(%rbp),%rdx  //对-0x8(%rbp)取&(load effective address),放到%rdx
+  400513:	48 8d 45 fc          	lea    -0x4(%rbp),%rax  //&a 
+  400517:	48 89 d6             	mov    %rdx,%rsi  //%rsi, frist 参数, 从右向左, &b
+  40051a:	48 89 c7             	mov    %rax,%rdi  //%rdi, Sec 
+  40051d:	e8 ab ff ff ff       	callq  4004cd <swap> //call swap 了
   400522:	c9                   	leaveq 
   400523:	c3                   	retq   
   400524:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
