@@ -273,21 +273,22 @@ Disassembly of section .text:
 00000000004004cd <swap>:
   4004cd:	55                   	push   %rbp // 之前的栈基地址 入栈
   4004ce:	48 89 e5             	mov    %rsp,%rbp //设置新的基地址
-  4004d1:	48 89 7d e8          	mov    %rdi,-0x18(%rbp) //Fri 参数,[why] -18,0-~17的位置是做什么的预留呢? 
+  4004d1:	48 89 7d e8          	mov    %rdi,-0x18(%rbp) //Fri 参数,放到-18+rbp中[why] -18,0-~17的位置是做什么的预留呢? 
   4004d5:	48 89 75 e0          	mov    %rsi,-0x20(%rbp) //Sec 参数 ,问题同上
   4004d9:	48 8b 45 e8          	mov    -0x18(%rbp),%rax //将a的地址mv到rax
-  4004dd:	8b 00                	mov    (%rax),%eax //将rax中的内容mv到eax
-  4004df:	89 45 fc             	mov    %eax,-0x4(%rbp) //将eax的内容放到-0x4(%rbp),这个是tmp的操作[?]
+  4004dd:	8b 00                	mov    (%rax),%eax //将rax中的内容mv到eax,即a mv eax
+  4004df:	89 45 fc             	mov    %eax,-0x4(%rbp) //将eax的内容放到-0x4(%rbp),这个是tmp的操作,即a mv tmp
   // ida的注释是"Two special fields " r" and " s" represent return address and saved registers."[go]
-  4004e2:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-  4004e6:	8b 10                	mov    (%rax),%edx
-  4004e8:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-  4004ec:	89 10                	mov    %edx,(%rax)
-  4004ee:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
-  4004f2:	8b 55 fc             	mov    -0x4(%rbp),%edx
-  4004f5:	89 10                	mov    %edx,(%rax)
-  4004f7:	5d                   	pop    %rbp
-  4004f8:	c3                   	retq   
+  4004e2:	48 8b 45 e0          	mov    -0x20(%rbp),%rax //将b地址mv到rax
+  4004e6:	8b 10                	mov    (%rax),%edx  //将rax中的内容mv到rax,即b的内容存放edx
+  4004e8:	48 8b 45 e8          	mov    -0x18(%rbp),%rax //将-18+rbp中的Fri参数,到rax
+  4004ec:	89 10                	mov    %edx,(%rax) //b的内容放到第一个参数的地址中
+  4004ee:	48 8b 45 e0          	mov    -0x20(%rbp),%rax//sec 参数到rax
+  4004f2:	8b 55 fc             	mov    -0x4(%rbp),%edx //a mv edx
+  4004f5:	89 10                	mov    %edx,(%rax) // a mv到sec 参数地址
+
+  4004f7:	5d                   	pop    %rbp //rbp出栈,
+  4004f8:	c3                   	retq        //返回调用位置, ==popq %rip
 
 00000000004004f9 <main>:
   4004f9:	55                   	push   %rbp   //ebp->rbp: 86->64, 保存之前的栈基地址入栈
@@ -299,10 +300,14 @@ Disassembly of section .text:
   400513:	48 8d 45 fc          	lea    -0x4(%rbp),%rax  //&a 
   400517:	48 89 d6             	mov    %rdx,%rsi  //%rsi, frist 参数, 从右向左, &b
   40051a:	48 89 c7             	mov    %rax,%rdi  //%rdi, Sec 
-  40051d:	e8 ab ff ff ff       	callq  4004cd <swap> //call swap 了
-  400522:	c9                   	leaveq 
-  400523:	c3                   	retq   
-  400524:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)
+  40051d:	e8 ab ff ff ff       	callq  4004cd <swap> //call swap 了,相当于pushq %rip ; jmpq addr
+  400522:	c9                   	leaveq  //leaveq相当于：
+                                            //movq %rbp, %rsp
+                                            //popq %rbp
+                                            //leaveq跟函数进入时的如下操作是对应的：push   %rbp; mov    %rsp,%rbp
+
+  400523:	c3                   	retq   //[?] main why返回了两次  
+  400524:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)//[next]
   40052b:	00 00 00 
   40052e:	66 90                	xchg   %ax,%ax
 
