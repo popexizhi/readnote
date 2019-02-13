@@ -306,8 +306,9 @@ Disassembly of section .text:
                                             //popq %rbp
                                             //leaveq跟函数进入时的如下操作是对应的：push   %rbp; mov    %rsp,%rbp
 
-  400523:	c3                   	retq   //[?] main why返回了两次  
-  400524:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)//[next]
+  400523:	c3                   	retq   //[?--ok] main why返回了两次,不是两次,leaveq 是堆栈处理,retq是rip处理
+  400524:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)//[?] 
+  // 不是很明白，但是https://oomake.com/question/1163504 按这个中的推断，是防止main执行溢出使用的。
   40052b:	00 00 00 
   40052e:	66 90                	xchg   %ax,%ax
 
